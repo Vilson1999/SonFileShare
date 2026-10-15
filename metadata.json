@@ -1,6 +1,10 @@
 {
   "name": "SonShare",
   "description": "Offline P2P file sharing using Wi-Fi Direct and Bluetooth by Son Skr with Material You design and Min SDK 28.",
-  "requestFramePermissions": ["camera"],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

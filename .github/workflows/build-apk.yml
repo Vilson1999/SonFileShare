@@ -3,7 +3,9 @@ name: Build Android APK
 on:
   push:
     branches:
-      - main  # Change to your default branch if it's different (e.g., master)
+      - main
+      - master
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,17 +23,21 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 3. Grant execution permission to Gradle wrapper
+      # 3. Setup Gradle
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      # 4. Grant execution permission to Gradle wrapper
       - name: Make Gradle Executable
         run: chmod +x ./gradlew
 
-      # 4. Build Debug APK
+      # 5. Build Debug APK (ARMv7 & ARMv8)
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --stacktrace
 
-      # 5. Upload the generated APK as a GitHub artifact
+      # 6. Upload the generated APK as a GitHub artifact
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: SonShare-arm-debug-apk
+          path: app/build/outputs/apk/debug/*.apk

@@ -5,16 +5,19 @@ import {
   Sun,
   ShieldCheck,
   Wifi,
-  Radio
+  Radio,
+  Smartphone,
+  Download
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { TransferMode } from '../types';
 
 interface NavbarProps {
   onOpenSpecs: () => void;
+  onOpenKotlinApk: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenSpecs }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenSpecs, onOpenKotlinApk }) => {
   const { isDark, toggleDarkMode, defaultMode, setDefaultMode } = useTheme();
 
   return (
@@ -80,8 +83,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSpecs }) => {
           </button>
         </div>
 
-        {/* Zone 3: Specs Modal & Dark Mode Toggle */}
+        {/* Zone 3: Kotlin & APK, Specs, Dark Mode Toggle */}
         <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={onOpenKotlinApk}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white shadow-sm transition active:scale-95"
+            title="Kotlin Source & APK Download"
+          >
+            <Smartphone className="w-3.5 h-3.5" />
+            <span>Kotlin & APK</span>
+          </button>
+
           <button
             onClick={onOpenSpecs}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"

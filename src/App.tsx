@@ -6,6 +6,7 @@ import { SendView } from './components/SendView';
 import { ReceiveView } from './components/ReceiveView';
 import { TransferView } from './components/TransferView';
 import { SystemSpecsModal } from './components/SystemSpecsModal';
+import { KotlinApkModal } from './components/KotlinApkModal';
 import { P2PTransferManager } from './services/p2pEngine';
 import { NearbyPeer, ShareFile, TransferMode, TransferSession } from './types';
 
@@ -16,8 +17,9 @@ function MainApp() {
   const [currentView, setCurrentView] = useState<'home' | 'send' | 'receive' | 'transfer'>('home');
   const [activeSession, setActiveSession] = useState<TransferSession | null>(null);
 
-  // System Specs Modal
+  // Modals
   const [isSpecsOpen, setIsSpecsOpen] = useState(false);
+  const [isKotlinModalOpen, setIsKotlinModalOpen] = useState(false);
 
   // P2P Transfer Manager instance
   const transferManagerRef = useRef<P2PTransferManager | null>(null);
@@ -133,7 +135,10 @@ function MainApp() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#121316] text-slate-900 dark:text-slate-100 transition-colors">
       {/* Top Navbar */}
-      <Navbar onOpenSpecs={() => setIsSpecsOpen(true)} />
+      <Navbar
+        onOpenSpecs={() => setIsSpecsOpen(true)}
+        onOpenKotlinApk={() => setIsKotlinModalOpen(true)}
+      />
 
       {/* Main Viewport Router */}
       <main className="flex-1 flex flex-col justify-center px-4 sm:px-6 py-6">
@@ -173,6 +178,11 @@ function MainApp() {
       {/* System Specs & SDK Modal */}
       {isSpecsOpen && (
         <SystemSpecsModal onClose={() => setIsSpecsOpen(false)} />
+      )}
+
+      {/* Native Kotlin & APK Package Modal */}
+      {isKotlinModalOpen && (
+        <KotlinApkModal onClose={() => setIsKotlinModalOpen(false)} />
       )}
     </div>
   );
